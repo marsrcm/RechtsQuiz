@@ -27,14 +27,23 @@ def clear():
 def init_questions():
     path = get_project_root() / 'resources/questions.CSV'
     # noinspection PyTypeChecker
-    with open(path, newline='') as csvfile:
-        reader = csv.reader(csvfile, delimiter=';')
-        questions = []
-        for row in reader:
-            question = row[0]
-            qtype = Type.MultipleChoice if 'Multiple Choice' in row[-1] else Type.OpenEnded
-            if qtype == Type.MultipleChoice:
-                # only add answers that are not empty
-                answers = [a for a in row[1:-1] if a]
-                questions.append(MultipleChoice(question, qtype, answers))
-        return questions
+    csvfile = None
+    while csvfile == None:
+        try:
+            csvfile = open(path, newline='')
+        except FileNotFoundError:
+            print('\nquestions.csv not found in expected location\n'
+                  'Please enter path to file directory')
+            path = input().replace("\\", "/") + '/questions.csv'
+
+    reader = csv.reader(csvfile, delimiter=';')
+    questions = []
+    for row in reader:
+        question = row[0]
+        qtype = Type.MultipleChoice if 'Multiple Choice' in row[-1] else Type.OpenEnded
+        if qtype == Type.MultipleChoice:
+            # only add answers that are not empty
+            answers = [a for a in row[1:-1] if a]
+            questions.append(MultipleChoice(question, qtype, answers))
+    csvfile.close()
+    return questions

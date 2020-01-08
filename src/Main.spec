@@ -3,8 +3,8 @@
 block_cipher = None
 
 
-a = Analysis(['cli.py'],
-             pathex=['C:\\Users\\Mars004\\PycharmProjects\\RechtsQuiz'],
+a = Analysis(['Main.py'],
+             pathex=['C:\\Users\\Mars004\\PycharmProjects\\RechtsQuiz\\src'],
              binaries=[],
              datas=[],
              hiddenimports=[],
@@ -21,7 +21,7 @@ exe = EXE(pyz,
           a.scripts,
           [],
           exclude_binaries=True,
-          name='cli',
+          name='Main',
           debug=False,
           bootloader_ignore_signals=False,
           strip=False,
@@ -34,4 +34,4 @@ coll = COLLECT(exe,
                strip=False,
                upx=True,
                upx_exclude=[],
-               name='cli')
+               name='Main')
